@@ -16,6 +16,7 @@ int doom_wholenote = (60000 * 4) / doom_tempo;
 int doom_divider = 0, doom_noteDuration = 0;
 
 void doom_playSong() {
+  digitalWrite(PIN_LED, HIGH);
   
   for (int thisNote = 0; thisNote < doom_notes * 2; thisNote = thisNote + 2) {    
     doom_divider = doom_melody[thisNote + 1];
@@ -27,12 +28,15 @@ void doom_playSong() {
       doom_noteDuration = (doom_wholenote) / abs(doom_divider);
       doom_noteDuration *= 1.5; // increases the duration in half for dotted notes
     }
-  
-    tone(NOTE_PIN, doom_melody[thisNote], doom_noteDuration * 0.9);
+
+    digitalWrite(PIN_LED, HIGH);
+    tone(PIN_NOTE, doom_melody[thisNote], doom_noteDuration * 0.9);
   
     delay(doom_noteDuration);
-    noTone(NOTE_PIN);
+    digitalWrite(PIN_LED, LOW);
+    noTone(PIN_NOTE);
   }
 
+  digitalWrite(PIN_LED, LOW);
   delay(GAMETICK);
 }

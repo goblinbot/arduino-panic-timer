@@ -1,6 +1,10 @@
 #include "times.h"
 
-long gameRoundTime = ROUND_SHORT;
+const long ROUND_TYPES[] = { ROUND_SHORT, ROUND_REGULAR, ROUND_LONG, ROUND_XL };
+const int ROUND_TYPES_MAX = 3;
+
+int currentRoundType = 1;
+long gameRoundTime = ROUND_TYPES[currentRoundType];
 long gameTimer = 0;
 
 void cleanupTimers() {
@@ -16,6 +20,8 @@ void startGame() {
   gameTimer = gameRoundTime;
   beepBreakpoint = (gameRoundTime / BEEP_DELAYS[beepLevel]);
   
+  Serial.println("Starting round, game time:");
+  Serial.println(gameRoundTime);
   doom_playSong();
   gameIsPlaying = 1;
 }
@@ -23,7 +29,7 @@ void startGame() {
 void endGame() {
   cleanupTimers();
   playEndGameBeep();
-  Serial.println("END");
+  Serial.println("END GAME");
 }
 
 void runBeepTimer() {
@@ -35,6 +41,21 @@ void runBeepTimer() {
   beepTimer = beepTimer + GAMETICK;
 }
 
+void toggleRoundTimes() {
+  if (currentRoundType < ROUND_TYPES_MAX) {
+    currentRoundType++;
+  } else {
+    currentRoundType = 0;
+  }
+
+  Serial.println("RoundType switch, New Type:");
+  Serial.println(currentRoundType);
+
+  gameRoundTime = ROUND_TYPES[currentRoundType];
+  
+  playGameToggleSound(currentRoundType + 1);
+  delay(GAMETICK);
+}
 
 void runGameTimer() {
   if (gameIsPlaying == 1) {
@@ -49,17 +70,16 @@ void runGameTimer() {
 }
 
 void calculateBeepScaling() {
-    if (gameIsPlaying == 1) {
-      if (beepLevel == 0) {
-
-        if ( gameTimer / BEEP_DELAYS[beepLevel] <= ( beepBreakpoint * 0.66 )) {
-          increaseBeepLevel();
-        }
-        
-      } else {
-        if (gameTimer / BEEP_DELAYS[beepLevel] <= beepBreakpoint) {
-          increaseBeepLevel();  
-        }
+  if (gameIsPlaying == 1) {
+    if (beepLevel == 0) {
+      if ( gameTimer / BEEP_DELAYS[beepLevel] <= ( beepBreakpoint * 0.66 )) {
+        increaseBeepLevel();
       }
-    } 
+      
+    } else {
+      if (gameTimer / BEEP_DELAYS[beepLevel] <= beepBreakpoint) {
+        increaseBeepLevel();  
+      }
+    }
+  } 
 }
