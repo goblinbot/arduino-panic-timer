@@ -45,6 +45,7 @@ void handleStartButtonInput() {
   if (buttonStartState == HIGH) {
     if (gameIsPlaying == 1) { 
       endGame();
+      playEarlyGameEnd();
     } else {
       startGame();
       Serial.println("START");
@@ -63,6 +64,7 @@ void handleDefuseButtonInput() {
     if (defuseTimer >= REQUIRED_DEFUSE_TIME) {
       Serial.println("DONE, RESET");
       endGame();
+      playDefuseVictory();
     } else {
       defuseTimer = defuseTimer + GAMETICK;
       Serial.println(defuseTimer);
@@ -70,9 +72,8 @@ void handleDefuseButtonInput() {
     
   } else {
     if (defuseButtonPrevious == HIGH) {
-      Serial.println("STOP CLOCK, RESET");
+      Serial.println("STOP DEFUSE CLOCK, RESET");
       defuseTimer = 0;
-      runBeepTimer();
     }
   }
   defuseButtonPrevious = defuseButtonState;

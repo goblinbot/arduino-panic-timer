@@ -1,8 +1,6 @@
 #include "times.h"
 
-//long gameRoundTime = ROUND_REGULAR;
-//long gameRoundTime = ROUND_SHORT;
-long gameRoundTime = (MINUTE * 2);
+long gameRoundTime = ROUND_SHORT;
 long gameTimer = 0;
 
 void cleanupTimers() {
@@ -48,8 +46,6 @@ void runGameTimer() {
      }
   }
 
- Serial.println("---timer");
- Serial.println(gameTimer);
 }
 
 void calculateBeepScaling() {
