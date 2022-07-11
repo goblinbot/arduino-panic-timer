@@ -10,6 +10,14 @@ Live Demo: https://wokwi.com/projects/336510517582496340
 
 A simple Arduino Nano project, using multiple smaller push buttons, single larger push button, buzzer and a bright red LED.
 
+Originally built as an objective for a 5v5 airsoft event. Starting a game starts a (250ms tick based) countdown based on pre-defined gametimes (current default: 10 minutes) in which one team defends the prop, while the opposing team tries to defuse the timer by holding the defuse button for 10 seconds.
+
+If the timer runs out, defending team wins while a distorted tune plays! If defused, opposing team wins with a much gentler tune.
+
+### Current diagram
+
+<adding picture soon>
+
 ### Version 1.0
 
 Features:
