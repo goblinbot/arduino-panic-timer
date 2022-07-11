@@ -16,7 +16,7 @@ If the timer runs out, defending team wins while a distorted tune plays! If defu
 
 ### Current diagram
 
-<adding picture soon>
+(Picture to be added)
 
 ### Version 1.0
 
