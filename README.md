@@ -2,6 +2,9 @@
 An Arduino based minigame for escape-rooms & hobby player-vs-player events.
 
 ## disclaimer
+
+"Oh my gahd JC a bamb!
+
 This minigame is about "defusing a fake bomb in time". This project does not involve or relate actual dangerous/harmful devices, nor encourage anything of the sort.
 
 ## The project
